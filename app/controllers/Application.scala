@@ -52,8 +52,9 @@ object Application extends Controller {
 
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username PRIMARY KEY, password varchar(20))")
 	  stmt.executeUpdate("INSERT INTO users VALUES ('${loginRequest.username}', '${loginRequest.password}')")
-
-	  conn.close()
+	  
+      }
+      conn.close()
 
       Ok(s"username: '${loginRequest.username}' has registered")
   }
