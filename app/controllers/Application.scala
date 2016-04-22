@@ -13,7 +13,7 @@ object Application extends Controller {
     Ok(views.html.index(null))
   }
 
-  def dbo = Action {
+  def db = Action {
     var out = ""
     val conn = DB.getConnection()
     try {
