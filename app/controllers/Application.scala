@@ -66,6 +66,8 @@ object Application extends Controller {
       	  val stmt = conn.createStatement
       	  val rs = stmt.executeQuery(s"SELECT username, password FROM users WHERE username = '${loginRequest.username}'")
 
+	  val password = s"${loginRequest.password}"
+
 	  while (rs.next) {
 	  	if (rs.getString(2) == password) {
 		   out = s"user: '${loginRequest.username}' logged in"
