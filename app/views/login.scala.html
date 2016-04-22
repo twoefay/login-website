@@ -19,6 +19,10 @@
     
     <p>To create an account:</p>
     <form method="post" action="@routes.Application.doCreateUser()">
+      <label for="username">username:</label>
+      <input type="text" color="blue"  name="username" id="username">
+      <label for="password">password:</label>
+      <input type="text" color="blue" name="password" id="password">
       <input type="submit" value="Create">
     </form>
 
