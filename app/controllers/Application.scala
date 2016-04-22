@@ -45,14 +45,11 @@ object Application extends Controller {
   }
   
   def doCreateUser = Action {implicit request => 
-      val createUserRequest = createUserForm.bindFromRequest.get
-      Ok(s"username: '${createUserRequest.new_username}', password: '${createUserRequest.new_password}'")
+      val loginRequest = loginForm.bindFromRequest.get
+      Ok(s"username: '${loginRequest.username}', password: '${loginRequest.password}'")
   }
 
   def loginForm = Form(mapping("username" -> text, "password" -> text)
-      (LoginRequest.apply) (LoginRequest.unapply))
-
-  def createUserForm = Form(mapping("new_username" -> text, "new_password" -> text)
       (LoginRequest.apply) (LoginRequest.unapply))
 
   case class LoginRequest(username:String, password:String)
