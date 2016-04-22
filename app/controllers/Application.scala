@@ -62,12 +62,13 @@ object Application extends Controller {
       
       val conn = DB.getConnection()
       try {
-      	  val ps = conn.prepareStatement("SELECT password FROM users WHERE username = ?")
-	  val username = s"${loginRequest.username}"
+      	  val ps = conn.prepareStatement("SELECT username, password FROM users WHERE username = ?")
+	  val username = s"'${loginRequest.username}'"
+	  val password = s"${loginRequest.password}"
 	  ps.setString(1, username);
 	  val rs = ps.executeQuery();
 	  while (rs.next) {
-	  	if (rs.getString(1) == username) {
+	  	if (rs.getString(2) == password) {
 		   Ok(s"user: '${loginRequest.username}' logged in")
 		}
 		else {
