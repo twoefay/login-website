@@ -32,4 +32,8 @@ object Application extends Controller {
     }
     Ok(out)
   }
+
+  def login = Action { 
+      Ok("Hello Fay!")
+  }
 }
