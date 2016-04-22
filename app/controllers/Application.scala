@@ -70,12 +70,14 @@ object Application extends Controller {
       	  val stmt = conn.createStatement
 
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username varchar(20) PRIMARY KEY, password varchar(20))")
-	  val p_st = conn.prepareStatement("INSERT INTO users VALUES (?, ?)")
-	  val username = "${loginRequest.username}"
-	  val password = "${loginRequest.password}"
-	  p_st.setString(1, username);
-	  p_st.setString(2, password);
-	  p_st.executeUpdate();
+	  stmt.executeUpdate("INSERT INTO users VALUES ("user1", "paswd1")")
+/*	  val p_st = conn.prepareStatement("INSERT INTO users VALUES (?, ?)")
+*	  val username = "${loginRequest.username}"
+*	  val password = "${loginRequest.password}"
+*	  p_st.setString(1, username);
+*	  p_st.setString(2, password);
+*	  p_st.executeUpdate(); 
+*/
 	  
       } finally {
       	conn.close()
