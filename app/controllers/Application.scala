@@ -72,9 +72,11 @@ object Application extends Controller {
 	  	if (rs.getString(2) == password) {
 		   out = s"user: '${loginRequest.username}' logged in"
 		}
+		else
+		   out = "bad request: pwd incorrect"
 	  }
 	  else
-		out = "bad request: pwd incorrect"
+		out = "bad request: user not found"
       } finally {
       	conn.close()
       }
