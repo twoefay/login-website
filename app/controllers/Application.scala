@@ -34,6 +34,6 @@ object Application extends Controller {
   }
 
   def login = Action { 
-      Ok(views.html.login(null)))
+      Ok(views.html.login(null))
   }
 }
