@@ -1,29 +1,17 @@
-# scala/play-getting-started
+# login_demo
 
 A barebones Scala app (using the Play framework), which can easily be deployed to Heroku.  
-
-This application support the [Getting Started with Scala/Play on Heroku](https://devcenter.heroku.com/articles/getting-started-with-scala) article - check it out.
-
-## Running Locally
-
-Make sure you have Play and sbt installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
+## Deploying to heroku
 
 ```sh
-$ git clone https://github.com/heroku/scala-getting-started.git
-$ cd scala-getting-started
-$ sbt compile stage
-$ heroku local
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
 $ git push heroku master
-$ heroku open
 ```
+
+This Heroku app is integrated with GitHub; master branch is automatically deployed. 
+
+## Use
+- Visit intense-mesa-20897.herokuapp.com/login.
+- /db1 will display all usernames 
 
 ## Documentation
 
