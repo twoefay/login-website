@@ -72,10 +72,10 @@ object Application extends Controller {
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username varchar(20) PRIMARY KEY, password varchar(20))")
 
 	  val p_st = conn.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)")
-	  val username = "${loginRequest.username}"
-	  val password = "${loginRequest.password}"
-	  p_st.setString(1, "user1");
-	  p_st.setString(2, "pwd1");
+	  val username = s"${loginRequest.username}"
+	  val password = s"${loginRequest.password}"
+	  p_st.setString(1, username);
+	  p_st.setString(2, password);
 	  p_st.executeUpdate(); 
 
 	  
@@ -83,7 +83,7 @@ object Application extends Controller {
       	conn.close()
       }
 
-      Ok("username: " + "'${loginRequest.username}'" + " has registered")
+      Ok(s"username: ${loginRequest.username} has registered")
   }
 
   def loginForm = Form(mapping("username" -> text, "password" -> text)
