@@ -58,16 +58,14 @@ object Application extends Controller {
   }
 
   def doLogin = Action { implicit request => 
-      var out = "bad request: user not found"
+      var out = "bad request"
       val loginRequest = loginForm.bindFromRequest.get
       
       var conn = DB.getConnection()
       try {
-      	  val ps = conn.prepareStatement("SELECT username, password FROM users WHERE username = ?")
-	  val username = s"'${loginRequest.username}'"
-	  val password = s"${loginRequest.password}"
-	  ps.setString(1, username);
-	  val rs = ps.executeQuery();
+      	  val stmt = conn.createStatement
+      	  val rs = stmt.executeQuery(s"SELECT username, password FROM users WHERE username = '${loginRequest.username}'")
+
 	  while (rs.next) {
 	  	if (rs.getString(2) == password) {
 		   out = s"user: '${loginRequest.username}' logged in"
@@ -75,6 +73,7 @@ object Application extends Controller {
 		else {
 		   out = "bad request: pwd incorrect"
 		}
+	out += " user not found"
 	}
       } finally {
       	conn.close()
