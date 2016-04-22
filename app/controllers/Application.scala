@@ -75,7 +75,7 @@ object Application extends Controller {
       	conn.close()
       }
 
-      Ok("username: " + ${loginRequest.username} + " has registered")
+      Ok("username: " + "'${loginRequest.username}'" + " has registered")
   }
 
   def loginForm = Form(mapping("username" -> text, "password" -> text)
