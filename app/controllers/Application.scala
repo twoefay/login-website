@@ -71,13 +71,13 @@ object Application extends Controller {
 		   Ok(s"user: '${loginRequest.username}' logged in")
 		}
 		else {
-		   Ok("bad request")
+		   Ok("bad request: pwd incorrect")
 		}
 	}
       } finally {
       	conn.close()
       }
-      Ok("bad request")
+      Ok("bad request: user not found")
   }
   
   def doCreateUser = Action {implicit request => 
