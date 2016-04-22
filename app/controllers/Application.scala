@@ -35,6 +35,23 @@ object Application extends Controller {
     Ok(out)
   }
 
+  def db1 = Action {
+      var out = ""
+      var conn = DB.getConnection()
+      try {
+      	  val stmt = conn.createStatement
+	  
+	  val rs = stmt.executeQuery("SELECT * FROM users")
+
+	  while (rs.next) {
+	  	out += "User: " + rs.getString("username") + " pw: " + rs.getString("password") + "\n"
+     } finally {
+       conn.close()
+     }
+
+     Ok(out)
+  }
+
   def login = Action { 
       Ok(views.html.login(null))
   }
@@ -53,8 +70,9 @@ object Application extends Controller {
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username PRIMARY KEY, password varchar(20))")
 	  stmt.executeUpdate("INSERT INTO users VALUES ('${loginRequest.username}', '${loginRequest.password}')")
 	  
+      } finally {
+      	conn.close()
       }
-      conn.close()
 
       Ok(s"username: '${loginRequest.username}' has registered")
   }

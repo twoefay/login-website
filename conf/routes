@@ -8,6 +8,7 @@ GET     /db                         controllers.Application.db
 GET 	/login			    controllers.Application.login
 POST	/login			    controllers.Application.doLogin
 POST 	/login			    controllers.Application.doCreateUser
+GET 	/db1			    controllers.Application.db1
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
