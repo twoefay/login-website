@@ -41,10 +41,10 @@ object Application extends Controller {
       try {
       	  val stmt = conn.createStatement
 	  
-	  val rs = stmt.executeQuery("SELECT * FROM users")
+	  val rs = stmt.executeQuery("SELECT username FROM users")
 
 	  while (rs.next) {
-	  	out += "User: " + rs.getString("username") + " pw: " + rs.getString("password") + "\n"
+	  	out += "User: " + rs.getString("username") + "\n"
 	  }
      } finally {
        conn.close()
