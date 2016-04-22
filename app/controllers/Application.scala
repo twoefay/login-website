@@ -69,13 +69,13 @@ object Application extends Controller {
       	  val stmt = conn.createStatement
 
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username PRIMARY KEY, password varchar(20))")
-	  stmt.executeUpdate("INSERT INTO users VALUES ('${loginRequest.username}', '${loginRequest.password}')")
+	  stmt.executeUpdate("INSERT INTO users VALUES (${loginRequest.username}, ${loginRequest.password})")
 	  
       } finally {
       	conn.close()
       }
 
-      Ok(s"username: '${loginRequest.username}' has registered")
+      Ok("username: " + ${loginRequest.username} + " has registered")
   }
 
   def loginForm = Form(mapping("username" -> text, "password" -> text)
