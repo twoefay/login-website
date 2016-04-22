@@ -36,4 +36,14 @@ object Application extends Controller {
   def login = Action { 
       Ok(views.html.login(null))
   }
+
+  def doLogin = Action { implicit request => 
+      val loginRequest = loginForm.bindFromRequest.get
+      Ok(s"username: '${loginRequest.username}', password: '${loginRequest.password}'")
+  }
+
+  def loginForm = Form(mapping("username" -> text, "password" -> text)
+      (LoginRequest.apply) (LoginRequest.unapply))
+
+  case class LoginRequest(username:String, password:String)
 }

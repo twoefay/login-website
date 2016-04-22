@@ -8,7 +8,7 @@
       <img src="@routes.Assets.at("images/lang-logo.png")">
     </a>
     <h1>Login to This Website</h1>
-    <form method="post" action="#">
+    <form method="post" action="@routes.Application.doLogin()">
       <label for="username">username:</label>
       <input type="text" color="blue"  name="username" id="username">
       <label for="password">password:</label>
