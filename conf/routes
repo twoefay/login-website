@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index
 GET     /db                         controllers.Application.db
 GET 	/login			    controllers.Application.login
-#POST	/login			    controllers.Application.doLogin
+POST	/login			    controllers.Application.doLogin
 POST 	/login			    controllers.Application.doCreateUser
 GET 	/db1			    controllers.Application.db1
 
