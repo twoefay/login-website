@@ -59,11 +59,12 @@ object Application extends Controller {
 
   def doLogin = Action { implicit request => 
       val loginRequest = loginForm.bindFromRequest.get
-      Ok(s"username: '${loginRequest.username}', password: '${loginRequest.password}'")
+      Ok(s"username test: '${loginRequest.username}', password: '${loginRequest.password}'")
   }
   
   def doCreateUser = Action {implicit request => 
       val loginRequest = loginForm.bindFromRequest.get
+
       val conn = DB.getConnection()
       try {
       	  val stmt = conn.createStatement
