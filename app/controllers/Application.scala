@@ -71,7 +71,7 @@ object Application extends Controller {
       try {
       	  val stmt = conn.createStatement
 
-	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username PRIMARY KEY, password varchar(20))")
+	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username varchar(20) PRIMARY KEY, password varchar(20))")
 	  val p_st = conn.prepareStatement("INSERT INTO users VALUES (?, ?)")
 	  p_st.setString(1, ${loginRequest.username});
 	  p_st.setString(2, ${loginRequest.password});
