@@ -59,7 +59,25 @@ object Application extends Controller {
 
   def doLogin = Action { implicit request => 
       val loginRequest = loginForm.bindFromRequest.get
-      Ok(s"username test: '${loginRequest.username}', password: '${loginRequest.password}'")
+      
+      val conn = DB.getConnection()
+      try {
+      	  val ps = conn.prepareStatement("SELECT password FROM users WHERE username = ?")
+	  val username = s"${loginRequest.username}"
+	  ps.setString(1, username);
+	  val rs = ps.executeQuery();
+	  while (rs.next) {
+	  	if (rs.getString(1) == username) {
+		   Ok(s"user: '${loginRequest.username}' logged in")
+		}
+		else {
+		   Ok("bad request")
+		}
+	}
+      } finally {
+      	conn.close()
+      }
+      Ok("bad request")
   }
   
   def doCreateUser = Action {implicit request => 
