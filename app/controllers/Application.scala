@@ -46,7 +46,16 @@ object Application extends Controller {
   
   def doCreateUser = Action {implicit request => 
       val loginRequest = loginForm.bindFromRequest.get
-      Ok(s"username: '${loginRequest.username}', password: '${loginRequest.password}'")
+      val conn = DB.getConnection()
+      try {
+      	  val stmt = conn.createStatement
+
+	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username PRIMARY KEY, password varchar(20))")
+	  stmt.executeUpdate("INSERT INTO users VALUES ('${loginRequest.username}', '${loginRequest.password}')")
+
+	  conn.close()
+
+      Ok(s"username: '${loginRequest.username}' has registered")
   }
 
   def loginForm = Form(mapping("username" -> text, "password" -> text)
