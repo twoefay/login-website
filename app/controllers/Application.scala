@@ -58,10 +58,10 @@ object Application extends Controller {
   }
 
   def doLogin = Action { implicit request => 
-      val out = "bad request: user not found"
+      var out = "bad request: user not found"
       val loginRequest = loginForm.bindFromRequest.get
       
-      val conn = DB.getConnection()
+      var conn = DB.getConnection()
       try {
       	  val ps = conn.prepareStatement("SELECT username, password FROM users WHERE username = ?")
 	  val username = s"'${loginRequest.username}'"
@@ -86,7 +86,7 @@ object Application extends Controller {
   def doCreateUser = Action {implicit request => 
       val loginRequest = loginForm.bindFromRequest.get
 
-      val conn = DB.getConnection()
+      var conn = DB.getConnection()
       try {
       	  val stmt = conn.createStatement
 
