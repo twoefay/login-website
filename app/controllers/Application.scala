@@ -58,7 +58,7 @@ object Application extends Controller {
   }
 
   def doLogin = Action { implicit request => 
-      var out = "bad request"
+      var out = "bad request: user not found"
       val loginRequest = loginForm.bindFromRequest.get
       
       var conn = DB.getConnection()
@@ -68,15 +68,13 @@ object Application extends Controller {
 
 	  val password = s"${loginRequest.password}"
 
-	  while (rs.next) {
+	  if (rs.next) {
 	  	if (rs.getString(2) == password) {
 		   out = s"user: '${loginRequest.username}' logged in"
 		}
-		else {
-		   out = "bad request: pwd incorrect"
-		}
-	out += " user not found"
-	}
+	  }
+	  else
+		out = "bad request: pwd incorrect"
       } finally {
       	conn.close()
       }
