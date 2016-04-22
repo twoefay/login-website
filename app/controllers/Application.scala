@@ -31,6 +31,7 @@ object Application extends Controller {
       }
     } finally {
       conn.close()
+      rs.close()
     }
     Ok(out)
   }
@@ -44,10 +45,11 @@ object Application extends Controller {
 	  val rs = stmt.executeQuery("SELECT username FROM users")
 
 	  while (rs.next) {
-	  	out += "User: " + rs.getString("username") + "\n"
+	  	out += "User: " + rs.getString(1) + "\n"
 	  }
      } finally {
        conn.close()
+       rs.close()
      }
 
      Ok(out)
@@ -70,7 +72,10 @@ object Application extends Controller {
       	  val stmt = conn.createStatement
 
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username PRIMARY KEY, password varchar(20))")
-	  stmt.executeUpdate("INSERT INTO users VALUES (${loginRequest.username}, ${loginRequest.password})")
+	  val p_st = conn.prepareStatement("INSERT INTO users VALUES (?, ?)")
+	  p_st.setString(1, ${loginRequest.username});
+	  p_st.setString(2, ${loginRequest.password});
+	  p_st.executeUpdate();
 	  
       } finally {
       	conn.close()
