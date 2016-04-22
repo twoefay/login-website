@@ -45,6 +45,7 @@ object Application extends Controller {
 
 	  while (rs.next) {
 	  	out += "User: " + rs.getString("username") + " pw: " + rs.getString("password") + "\n"
+	  }
      } finally {
        conn.close()
      }
