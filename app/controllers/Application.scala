@@ -31,7 +31,6 @@ object Application extends Controller {
       }
     } finally {
       conn.close()
-      rs.close()
     }
     Ok(out)
   }
@@ -49,7 +48,6 @@ object Application extends Controller {
 	  }
      } finally {
        conn.close()
-       rs.close()
      }
 
      Ok(out)
@@ -73,8 +71,9 @@ object Application extends Controller {
 
 	  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (username varchar(20) PRIMARY KEY, password varchar(20))")
 	  val p_st = conn.prepareStatement("INSERT INTO users VALUES (?, ?)")
-	  p_st.setString(1, ${loginRequest.username});
-	  p_st.setString(2, ${loginRequest.password});
+	  val username = ${loginRequest.username}
+	  p_st.setString(1, "${loginRequest.username}");
+	  p_st.setString(2, "${loginRequest.password}");
 	  p_st.executeUpdate();
 	  
       } finally {
