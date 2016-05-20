@@ -1,5 +1,17 @@
 package controllers
 
+import javax.inject.Inject
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
+import play.api.libs.ws._
+import play.api.http.HttpEntity
+
+import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
+import akka.stream.scaladsl._
+import akka.util.ByteString
+
 import play.api._
 import play.api.mvc._
 import play.api.cache.Cache
@@ -9,7 +21,7 @@ import play.api.data.Forms._
 
 import play.api.db._
 
-object Application extends Controller {
+class Application @Inject() (ws: WSClient)  extends Controller {
 
   def index = Action {
     Ok(views.html.index(null))
