@@ -1,5 +1,12 @@
 package controllers
 
+impoer javax.inject.Inject
+import scala.concurrent.Future
+import scala.concurrent.duration._
+import play.api.libs.ws._
+
+import scala.concurrent.ExecutionContext
+
 import play.api._
 import play.api.mvc._
 import play.api.cache.Cache
@@ -9,7 +16,15 @@ import play.api.data.Forms._
 
 import play.api.db._
 
-object Application  extends Controller {
+class Application @Inject() (ws:WSClient)  extends Controller {
+  import play.api.libs.json.Json
+
+  def saveStock = Action {request =>
+      val json = request.body.asJson.get
+      val stock = json.as[Stock]
+      println(stock)
+      Ok
+  }
 
   def index = Action {
     Ok(views.html.index(null))
@@ -83,7 +98,7 @@ object Application  extends Controller {
       
       Ok(out)
   }
-  
+
   def doCreateUser = Action {implicit request => 
       val loginRequest = loginForm.bindFromRequest.get
 
@@ -104,6 +119,10 @@ object Application  extends Controller {
       } finally {
       	conn.close()
       }
+
+      val request: WSRequest = ws.url("https://45.55.160.134.8080/sampleJSON.txt")
+
+      val futureResult: Future[String] = request.get()
 
       Ok(s"username: ${loginRequest.username} has registered")
   }
